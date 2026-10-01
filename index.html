@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>강태석 | Kang Tae-seok</title>
+  <style>
+    :root {
+      /* FC 바르셀로나 블라우그라나 테마 팔레트 */
+      --blau: #004d98;
+      --blau-dark: #002b5c;
+      --grana: #a50044;
+      --grana-dark: #7a0032;
+      --gold-accent: #edbb00;
+      
+      --bg-surface: #f4f6fa;
+      --card-bg: #ffffff;
+      --text-title: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --border-soft: #e2e8f0;
+      --shadow-sm: 0 4px 12px rgba(0, 43, 92, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0, 43, 92, 0.08), 0 8px 10px -6px rgba(0, 43, 92, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      word-break: keep-all;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      background-color: var(--bg-surface);
+      color: var(--text-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 1. 상단 블라우그라나 히어로 영역 */
+    .hero-wrapper {
+      background: linear-gradient(145deg, var(--blau-dark) 0%, var(--blau) 42%, var(--grana) 85%, var(--grana-dark) 100%);
+      color: #ffffff;
+      padding: 68px 20px 72px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--gold-accent);
+    }
+
+    /* 배경 스트라이프 및 기하학 문양 장식 */
+    .hero-wrapper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.02) 0px,
+        rgba(255, 255, 255, 0.02) 35px,
+        transparent 35px,
+        transparent 70px
+      );
+      pointer-events: none;
+    }
+
+    .hero-wrapper::after {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(237, 187, 0, 0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-container {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 시그니처 엠블럼 프레임 */
+    .emblem-ring {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.04));
+      border: 2px solid rgba(237, 187, 0, 0.6);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(237, 187, 0, 0.45);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    /* 강화된 이름 타이포그래피 */
+    .hero-name {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-name-en {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      color: rgba(255, 255, 255, 0.75);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero-role {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 2. 하단 밝은 메인 영역 */
+    .content-area {
+      max-width: 680px;
+      margin: -36px auto 60px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-soft);
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--blau);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-soft);
+    }
+
+    /* 인터랙티브 캘린더 위젯 */
+    .calendar-card {
+      padding: 22px 24px;
+    }
+
+    .cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .cal-title-group h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-title);
+    }
+
+    .cal-title-group p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .cal-badge {
+      background: #eff6ff;
+      color: var(--blau);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .cal-day-name {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 6px 0;
+    }
+
+    .cal-day-name.sun { color: var(--grana); }
+    .cal-day-name.sat { color: var(--blau); }
+
+    .cal-cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 10px;
+      color: var(--text-body);
+      background: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    .cal-cell.empty {
+      background: transparent;
+      visibility: hidden;
+    }
+
+    .cal-cell.today {
+      background: linear-gradient(135deg, var(--blau) 0%, var(--grana) 100%);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(165, 0, 68, 0.35);
+      position: relative;
+    }
+
+    /* 목표 비전 카드 */
+    .goal-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
+      border-left: 5px solid var(--grana);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .goal-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: rgba(165, 0, 68, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .goal-content h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--grana);
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+
+    .goal-content p {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-title);
+      letter-spacing: -0.01em;
+    }
+
+    /* 관심 분야 모듈 */
+    .interests-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .interest-box {
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .interest-icon {
+      font-size: 1.5rem;
+      background: #ffffff;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+    }
+
+    .interest-text h5 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-bottom: 2px;
+    }
+
+    .interest-text p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* 좋아하는 것 3가지 카드 */
+    .fav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+    }
+
+    .fav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .fav-icon {
+      font-size: 1.4rem;
+      width: 40px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .fav-detail h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-title);
+    }
+
+    .fav-detail p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .fav-tag {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      color: var(--blau);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 12px 0 20px;
+    }
+
+    /* 모바일 반응형 최적화 */
+    @media (max-width: 520px) {
+      .hero-wrapper {
+        padding: 56px 16px 64px;
+      }
+      .content-area {
+        padding: 0 16px;
+        margin-top: -30px;
+      }
+      .hero-name {
+        font-size: 2.1rem;
+      }
+      .card {
+        padding: 18px;
+      }
+      .interests-container {
+        grid-template-columns: 1fr;
+      }
+      .cal-cell {
+        font-size: 0.8rem;
+        border-radius: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1단: 블라우그라나 상단 히어로 -->
+  <header class="hero-wrapper">
+    <div class="hero-container">
+      <div class="emblem-ring">🦁</div>
+      <div class="status-pill">Curious Strategist</div>
+      <h1 class="hero-name">강 태 석</h1>
+      <div class="hero-name-en">Kang Tae-seok</div>
+      <p class="hero-role">
+        <span>경영학과 3학년</span>
+        <span>•</span>
+        <span>HR &amp; Sports Business</span>
+      </p>
+    </div>
+  </header>
+
+  <!-- 2단: 밝은 본문 카드 영역 -->
+  <main class="content-area">
+
+    <!-- 오늘 날짜 자동 갱신 캘린더 -->
+    <section class="card calendar-card">
+      <div class="cal-header">
+        <div class="cal-title-group">
+          <h3 id="cal-month-year">2026. 10</h3>
+          <p id="today-string">오늘 날짜 불러오는 중...</p>
+        </div>
+        <span class="cal-badge">TODAY</span>
+      </div>
+      <div class="cal-grid" id="calendar-grid">
+        <!-- JS로 동적 생성 -->
+      </div>
+    </section>
+
+    <!-- 목표 -->
+    <section class="card goal-banner">
+      <div class="goal-icon">🎯</div>
+      <div class="goal-content">
+        <h4>CORE GOAL</h4>
+        <p>"행복을 찾자"</p>
+      </div>
+    </section>
+
+    <!-- 관심 분야 -->
+    <section class="card">
+      <div class="section-label">Field of Interest</div>
+      <div class="interests-container">
+        <div class="interest-box">
+          <div class="interest-icon">👥</div>
+          <div class="interest-text">
+            <h5>인사 (HRM)</h5>
+            <p>사람 중심의 조직 문화와 데이터 기반 인사 전략</p>
+          </div>
+        </div>
+        <div class="interest-box">
+          <div class="interest-icon">⚽</div>
+          <div class="interest-text">
+            <h5>스포츠 마케팅</h5>
+            <p>팬덤 비즈니스와 브랜드 가치 극대화 전략</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 좋아하는 것 3가지 -->
+    <section class="card">
+      <div class="section-label">Top 3 Favorites</div>
+      <div class="fav-list">
+        <div class="fav-item">
+          <div class="fav-left">
+            <div class="fav-icon">✈️</div>
+            <div class="fav-detail">
+              <h5>여행 다니기</h5>
+              <p>유럽의 역사와 문화를 경험하는 여정</p>
+            </div>
+          </div>
+          <span class="fav-tag">Europe</span>
+        </div>
+        <div class="fav-item">
+          <div class="fav-left">
+            <div class="fav-icon">🏟️</div>
+            <div class="fav-detail">
+              <h5>축구 경기 관람</h5>
+              <p>열정과 전술이 살아있는 축구의 매력</p>
+            </div>
+          </div>
+          <span class="fav-tag">FC Barcelona</span>
+        </div>
+        <div class="fav-item">
+          <div class="fav-left">
+            <div class="fav-icon">🍻</div>
+            <div class="fav-detail">
+              <h5>사람들과 어울리기</h5>
+              <p>서로 교감하며 좋은 시너지를 나누는 순간</p>
+            </div>
+          </div>
+          <span class="fav-tag">Networking</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="current-year"></span> 강태석. All rights reserved.
+    </footer>
+  </main>
+
+  <!-- 캘린더 자동 계산 및 렌더링 스크립트 -->
+  <script>
+    (function () {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth(); // 0-indexed
+      const currentDate = now.getDate();
+      const dayIndex = now.getDay();
+
+      const dayNamesKo = ['일', '월', '화', '수', '목', '금', '토'];
+      
+      // 연도 및 오늘 날짜 텍스트 반영
+      document.getElementById('current-year').textContent = currentYear;
+      document.getElementById('cal-month-year').textContent = `${currentYear}년 ${currentMonth + 1}월`;
+      document.getElementById('today-string').textContent = `오늘은 ${currentMonth + 1}월 ${currentDate}일 (${dayNamesKo[dayIndex]}요일)입니다.`;
+
+      const grid = document.getElementById('calendar-grid');
+
+      // 요일 헤더 생성
+      dayNamesKo.forEach((name, index) => {
+        const headerCell = document.createElement('div');
+        headerCell.className = 'cal-day-name';
+        if (index === 0) headerCell.classList.add('sun');
+        if (index === 6) headerCell.classList.add('sat');
+        headerCell.textContent = name;
+        grid.appendChild(headerCell);
+      });
+
+      // 이번 달 첫째 날과 마지막 날 계산
+      const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+      const lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      // 시작 요일 전 공백 셀
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'cal-cell empty';
+        grid.appendChild(emptyCell);
+      }
+
+      // 날짜 채우기 및 오늘 날짜 하이라이트
+      for (let date = 1; date <= lastDateOfMonth; date++) {
+        const dateCell = document.createElement('div');
+        dateCell.className = 'cal-cell';
+        dateCell.textContent = date;
+
+        if (date === currentDate) {
+          dateCell.classList.add('today');
+        }
+
+        grid.appendChild(dateCell);
+      }
+    })();
+  </script>
+</body>
+</html>
